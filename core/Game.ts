@@ -1,4 +1,5 @@
 import { Application } from 'pixi.js';
+import { MainScene } from './reel/main-scene/main-scene';
 
 export class Game {
     private app: Application;
@@ -17,9 +18,8 @@ export class Game {
         });
 
         containerElement.appendChild(this.app.canvas);
-    }
 
-    public get stage() {
-        return this.app.stage;
+        const mainScene = new MainScene();
+        this.app.stage.addChild(mainScene);
     }
 }
