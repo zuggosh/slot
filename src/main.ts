@@ -1,4 +1,5 @@
 import './style.css';
+import './styles/main.scss';
 import { Game } from '../core/Game';
 
 const initGame = async () => {

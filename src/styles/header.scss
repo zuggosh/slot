@@ -1,0 +1,23 @@
+@use 'variables' as *;
+
+header {
+  display: flex;
+  justify-content: flex-end;
+  gap: 20px;
+  padding: 10px 20px;
+  background-color: $header-bg;
+  border-bottom: 1px solid $border-color;
+
+  a {
+    color: $text-color;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: bold;
+    font-family: $font-family;
+    transition: color 0.2s ease;
+
+    &:hover {
+      color: $accent-color;
+    }
+  }
+}
