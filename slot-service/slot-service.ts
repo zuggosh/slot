@@ -11,7 +11,7 @@ export class SlotService {
         for (let i = 0; i < this.REEL_COUNT; i++) {
             const reelSymbols: number[] = [];
             for (let j = 0; j < this.VISIBLE_ROWS; j++) {
-                const randomSymbolId = Math.floor(Math.random() * 10);
+                const randomSymbolId = Math.floor(Math.random() * 9);
                 reelSymbols.push(randomSymbolId);
             }
             matrix.push(reelSymbols);

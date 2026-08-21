@@ -1,6 +1,6 @@
-import { Container, Text } from 'pixi.js';
+import {Container, type Sprite} from 'pixi.js';
 
 export interface ReelSymbol {
     container: Container;
-    text: Text;
+    sprite: Sprite;
 }

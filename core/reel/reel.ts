@@ -1,11 +1,12 @@
-import {Container, Graphics, Text, TextStyle} from 'pixi.js';
-import type {ReelConfig} from "./reel-config";
-import {ReelAnimator} from "./components/reel-animator/reel-animator.ts";
+import { Container, Graphics, Sprite, Texture } from 'pixi.js';
+import type { ReelConfig } from "./reel-config";
+import { ReelAnimator } from "./components/reel-animator/reel-animator";
 
 export class Reel extends Container {
     private config: ReelConfig;
     private symbolsContainer: Container;
-    private symbolsPool: { container: Container; text: Text }[] = [];
+
+    private symbolsPool: { container: Container; sprite: Sprite }[] = [];
     private animator: ReelAnimator;
 
     constructor(config: ReelConfig) {
@@ -35,37 +36,32 @@ export class Reel extends Container {
     private initializeSymbols(): void {
         const totalSymbols = this.config.visibleRows + 2;
 
-        const textStyle = new TextStyle({
-            fontFamily: 'Arial',
-            fontSize: 24,
-            fill: '#ffffff',
-            fontWeight: 'bold',
-        });
-
         for (let i = 0; i < totalSymbols; i++) {
             const symbolContainer = new Container();
 
-            // Подложка символа (прямоугольник)
             const bg = new Graphics();
             bg.rect(4, 4, this.config.symbolWidth - 8, this.config.symbolHeight - 8);
             bg.fill(0x333333);
             bg.stroke({ width: 2, color: 0x555555 });
 
-            const text = new Text({
-                text: `${i}`,
-                style: textStyle
-            });
-            text.anchor.set(0.5);
-            text.x = this.config.symbolWidth / 2;
-            text.y = this.config.symbolHeight / 2;
+            const randomId = Math.floor(Math.random() * 9);
+            const sprite = new Sprite(Texture.from(`symbol_${randomId}`));
+
+            sprite.anchor.set(0.5);
+            sprite.x = this.config.symbolWidth / 2;
+            sprite.y = this.config.symbolHeight / 2;
+
+            sprite.width = this.config.symbolWidth - 20;
+            sprite.height = this.config.symbolHeight - 20;
 
             symbolContainer.addChild(bg);
-            symbolContainer.addChild(text);
+            symbolContainer.addChild(sprite); // Добавляем картинку на канвас
 
             symbolContainer.y = (i - 1) * this.config.symbolHeight;
 
             this.symbolsContainer.addChild(symbolContainer);
-            this.symbolsPool.push({ container: symbolContainer, text });
+
+            this.symbolsPool.push({ container: symbolContainer, sprite });
         }
     }
 

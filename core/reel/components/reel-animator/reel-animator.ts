@@ -1,4 +1,4 @@
-import { Ticker } from 'pixi.js';
+import { Ticker, Texture } from 'pixi.js';
 import type { ReelConfig } from '../../reel-config';
 import type { ReelSymbol } from './reel-symbol';
 
@@ -32,11 +32,11 @@ export class ReelAnimator {
                 const targetY = Math.round(item.container.y / symbolHeight) * symbolHeight;
 
                 if (targetY === 0) {
-                    item.text.text = `${resultSymbols[0]}`;
+                    item.sprite.texture = Texture.from(`symbol_${resultSymbols[0]}`);
                 } else if (targetY === symbolHeight) {
-                    item.text.text = `${resultSymbols[1]}`;
+                    item.sprite.texture = Texture.from(`symbol_${resultSymbols[1]}`);
                 } else if (targetY === symbolHeight * 2) {
-                    item.text.text = `${resultSymbols[2]}`;
+                    item.sprite.texture = Texture.from(`symbol_${resultSymbols[2]}`);
                 }
             });
         });
@@ -59,7 +59,8 @@ export class ReelAnimator {
 
                 if (item.container.y >= bottomLimit) {
                     item.container.y -= totalSymbols * symbolHeight;
-                    item.text.text = `${Math.floor(Math.random() * 10)}`;
+                    const randomId = Math.floor(Math.random() * 9);
+                    item.sprite.texture = Texture.from(`symbol_${randomId}`);
                 }
             } else {
                 const targetY = Math.round(item.container.y / symbolHeight) * symbolHeight;

@@ -1,5 +1,6 @@
 import { Application } from 'pixi.js';
 import { MainScene } from './reel/main-scene/main-scene';
+import {loadGameAssets} from "../public/assets/asset-loader/asset-loader.ts";
 
 export class Game {
     private app: Application;
@@ -18,6 +19,8 @@ export class Game {
         });
 
         containerElement.appendChild(this.app.canvas);
+
+        await loadGameAssets();
 
         const mainScene = new MainScene();
         this.app.stage.addChild(mainScene);
